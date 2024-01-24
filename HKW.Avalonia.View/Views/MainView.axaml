@@ -1,0 +1,23 @@
+<UserControl
+  x:Class="HKW.Avalonia.Views.MainView"
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:c="https://hkw.com/avalonia"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  d:DesignHeight="450"
+  d:DesignWidth="800"
+  mc:Ignorable="d">
+  <UserControl.Resources>
+    <c:BoolInverter x:Key="BoolInverter" IsInverted="True" />
+  </UserControl.Resources>
+  <StackPanel>
+    <TextBlock
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Background="Aqua"
+      IsVisible="{Binding #Switch.IsChecked, Converter={StaticResource BoolInverter}}"
+      Text="114514" />
+    <ToggleSwitch x:Name="Switch" />
+  </StackPanel>
+</UserControl>
