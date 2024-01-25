@@ -13,7 +13,7 @@ public class DebugConverter : ValueConverterBase<DebugConverter>
     )
     {
         Debug.WriteLine(
-            "DebugConverter.Convert(value={0}, targetType={1}, parameter={2}, culture={3}",
+            "DebugConverter.Convert(_value={0}, targetType={1}, parameter={2}, culture={3}",
             value ?? "null",
             (object)targetType ?? "null",
             parameter ?? "null",
@@ -31,7 +31,7 @@ public class DebugConverter : ValueConverterBase<DebugConverter>
     )
     {
         Debug.WriteLine(
-            "DebugConverter.ConvertBack(value={0}, targetType={1}, parameter={2}, culture={3}",
+            "DebugConverter.ConvertBack(_value={0}, targetType={1}, parameter={2}, culture={3}",
             value ?? "null",
             (object)targetType ?? "null",
             parameter ?? "null",

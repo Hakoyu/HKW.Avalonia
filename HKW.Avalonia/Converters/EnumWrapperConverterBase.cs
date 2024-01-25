@@ -44,7 +44,7 @@ public abstract class EnumWrapperConverterBase<TConverter> : ValueConverterBase<
                 var genericType = type.GetGenericArguments()[0];
                 var enumWrapperList = typeof(EnumWrapperConverterBase<TConverter>)
                     .GetMethod(nameof(this.CreateMapperList))
-                    .MakeGenericMethod(new[] { genericType })
+                    .MakeGenericMethod([genericType])
                     .Invoke(this, new[] { value, this.NameStyle });
                 return enumWrapperList;
             }

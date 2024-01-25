@@ -25,17 +25,17 @@ public abstract class BoolToValueConverterBase<T, TConverter> : ValueConverterBa
         CultureInfo culture
     )
     {
-        var returnValue = this.FalseValue;
+        var returnValue = FalseValue;
 
         if (value is bool boolValue)
         {
-            if (this.IsInverted)
+            if (IsInverted)
             {
-                returnValue = boolValue ? this.FalseValue : this.TrueValue;
+                returnValue = boolValue ? FalseValue : TrueValue;
             }
             else
             {
-                returnValue = boolValue ? this.TrueValue : this.FalseValue;
+                returnValue = boolValue ? TrueValue : FalseValue;
             }
         }
 
@@ -53,13 +53,13 @@ public abstract class BoolToValueConverterBase<T, TConverter> : ValueConverterBa
 
         if (value != null)
         {
-            if (this.IsInverted)
+            if (IsInverted)
             {
-                returnValue = value.Equals(this.FalseValue);
+                returnValue = value.Equals(FalseValue);
             }
             else
             {
-                returnValue = value.Equals(this.TrueValue);
+                returnValue = value.Equals(TrueValue);
             }
         }
 

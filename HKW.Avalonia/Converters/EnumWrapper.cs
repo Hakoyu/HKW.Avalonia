@@ -15,12 +15,13 @@ public static class EnumWrapper
     /// <summary>
     ///     Creates a list of wrapped values of an enumeration.
     /// </summary>
-    /// <typeparam name="TEnumType">Type of the enumeration.</typeparam>
+    /// <typeparam name="TEnum">Type of the enumeration.</typeparam>
     /// <returns>The wrapped enumeration values.</returns>
-    public static IEnumerable<EnumWrapper<TEnumType>> CreateWrappers<TEnumType>()
+    public static IEnumerable<EnumWrapper<TEnum>> CreateWrappers<TEnum>()
+        where TEnum : struct, Enum
     {
-        var allEnums = Enum.GetValues(typeof(TEnumType)).OfType<TEnumType>();
-        return allEnums.Select(x => new EnumWrapper<TEnumType>(x));
+        var allEnums = Enum.GetValues<TEnum>();
+        return allEnums.Select(x => new EnumWrapper<TEnum>(x));
     }
 
     /// <summary>
@@ -52,32 +53,26 @@ public static class EnumWrapper
 
 public class EnumWrapper<TEnumType> : INotifyPropertyChanged, IEquatable<EnumWrapper<TEnumType>>
 {
-    private readonly TEnumType value;
-    private readonly EnumWrapperConverterNameStyle nameStyle;
+    private readonly TEnumType _value;
+    private readonly EnumWrapperConverterNameStyle _nameStyle;
 
     public EnumWrapper(
         TEnumType value,
         EnumWrapperConverterNameStyle nameStyle = EnumWrapperConverterNameStyle.LongName
     )
     {
-        this.value = value;
-        this.nameStyle = nameStyle;
+        _value = value;
+        _nameStyle = nameStyle;
     }
 
-    public TEnumType Value
-    {
-        get { return this.value; }
-    }
+    public TEnumType Value => _value;
 
     /// <summary>
     /// Use LocalizedValue to bind UI elements to.
     /// To enforce a refresh of LocalizedValue property (e.g. when you change the UI culture at runtime)
     /// just call the <code>Refresh</code> method.
     /// </summary>
-    public string LocalizedValue
-    {
-        get { return this.ToString(); }
-    }
+    public string LocalizedValue => ToString();
 
     /// <summary>
     ///     Implicit to string conversion.
@@ -90,9 +85,7 @@ public class EnumWrapper<TEnumType> : INotifyPropertyChanged, IEquatable<EnumWra
         var fieldInfos = enumType.GetRuntimeFields();
 
         IEnumerable<FieldInfo> info = fieldInfos
-            .Where(
-                x => x.FieldType == enumType && x.GetValue(this.Value.ToString()).Equals(this.Value)
-            )
+            .Where(x => x.FieldType == enumType && x.GetValue(Value.ToString()).Equals(Value))
             .ToList();
         if (info.Any())
         {
@@ -104,7 +97,7 @@ public class EnumWrapper<TEnumType> : INotifyPropertyChanged, IEquatable<EnumWra
                         {
                             if (attribute is DisplayAttribute displayAttribute)
                             {
-                                if (this.nameStyle == EnumWrapperConverterNameStyle.LongName)
+                                if (_nameStyle == EnumWrapperConverterNameStyle.LongName)
                                 {
                                     return displayAttribute.GetName();
                                 }
@@ -135,7 +128,7 @@ public class EnumWrapper<TEnumType> : INotifyPropertyChanged, IEquatable<EnumWra
                                     continue;
                                 }
 
-                                if (this.nameStyle == EnumWrapperConverterNameStyle.LongName)
+                                if (_nameStyle == EnumWrapperConverterNameStyle.LongName)
                                 {
                                     var getNameMethodInfo = displayAttributeType.GetMethod(
                                         nameof(DisplayAttribute.GetName)
@@ -150,7 +143,7 @@ public class EnumWrapper<TEnumType> : INotifyPropertyChanged, IEquatable<EnumWra
                             }
                         }
 
-                        return this.Value.ToString();
+                        return Value.ToString();
                     })
                     .Single();
         }
@@ -180,7 +173,7 @@ public class EnumWrapper<TEnumType> : INotifyPropertyChanged, IEquatable<EnumWra
             return false;
         }
 
-        return this.Equals(enumWrapper);
+        return Equals(enumWrapper);
     }
 
     /// <summary>
@@ -198,7 +191,7 @@ public class EnumWrapper<TEnumType> : INotifyPropertyChanged, IEquatable<EnumWra
         {
             return true;
         }
-        return Equals(other.Value, this.Value);
+        return Equals(other.Value, Value);
     }
 
     /// <summary>
@@ -208,7 +201,7 @@ public class EnumWrapper<TEnumType> : INotifyPropertyChanged, IEquatable<EnumWra
     /// <returns>The converted value.</returns>
     public static implicit operator TEnumType(EnumWrapper<TEnumType> enumToConvert)
     {
-        return enumToConvert.value;
+        return enumToConvert._value;
     }
 
     /// <summary>
@@ -218,7 +211,7 @@ public class EnumWrapper<TEnumType> : INotifyPropertyChanged, IEquatable<EnumWra
     /// <returns>The converted value.</returns>
     public static implicit operator int(EnumWrapper<TEnumType> enumToConvert)
     {
-        return System.Convert.ToInt32(enumToConvert.value);
+        return System.Convert.ToInt32(enumToConvert._value);
     }
 
     /// <summary>
@@ -249,13 +242,13 @@ public class EnumWrapper<TEnumType> : INotifyPropertyChanged, IEquatable<EnumWra
     /// <returns>The hash code.</returns>
     public override int GetHashCode()
     {
-        return this.Value.GetHashCode();
+        return Value.GetHashCode();
     }
 
     public void Refresh()
     {
-        PropertyChanged?.Invoke(this, new(nameof(this.Value)));
-        PropertyChanged?.Invoke(this, new(nameof(this.LocalizedValue)));
+        PropertyChanged?.Invoke(this, new(nameof(Value)));
+        PropertyChanged?.Invoke(this, new(nameof(LocalizedValue)));
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
