@@ -4,21 +4,37 @@ using System.Globalization;
 
 namespace HKW.HKWAvalonia.Converters;
 
+/// <summary>
+/// 值到布尔转换器
+/// </summary>
+/// <typeparam name="T">值类型</typeparam>
+/// <typeparam name="TConverter">转换器类型</typeparam>
 public abstract class ValueToBoolConverterBase<T, TConverter> : ValueConverterBase<TConverter>
     where TConverter : ValueConverterBase<TConverter>, new()
 {
+    /// <summary>
+    /// 真值
+    /// </summary>
     public abstract T TrueValue { get; set; }
 
+    /// <summary>
+    ///
+    /// </summary>
     public static readonly StyledProperty<bool> IsInvertedProperty = AvaloniaProperty.Register<
         ValueToBoolConverterBase<T, TConverter>,
         bool
     >(nameof(IsInverted));
+
+    /// <summary>
+    /// 是反转的
+    /// </summary>
     public bool IsInverted
     {
         get => GetValue(IsInvertedProperty);
         set => SetValue(IsInvertedProperty, value);
     }
 
+    /// <inheritdoc/>
     public override object? Convert(
         object? value,
         Type targetType,

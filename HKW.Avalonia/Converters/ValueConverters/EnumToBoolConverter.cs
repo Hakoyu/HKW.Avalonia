@@ -4,11 +4,11 @@ using System.Globalization;
 namespace HKW.HKWAvalonia.Converters;
 
 /// <summary>
-/// EnumToBoolConverter can be used to bind to RadioButtons.
+/// 枚举到布尔转换器
 /// </summary>
-// Source: http://stackoverflow.com/questions/397556/how-to-bind-radiobuttons-to-an-enum
 public class EnumToBoolConverter : ValueConverterBase<EnumToBoolConverter>
 {
+    /// <inheritdoc/>
     public override object? Convert(
         object? value,
         Type targetType,
@@ -16,21 +16,21 @@ public class EnumToBoolConverter : ValueConverterBase<EnumToBoolConverter>
         CultureInfo culture
     )
     {
-        if (parameter is string parameterString)
+        if (value is null)
+            return null;
+        if (parameter is string str)
         {
-            if (Enum.IsDefined(value.GetType(), value) == false)
-            {
-                return UnsetValue;
-            }
-
-            var parameterValue = Enum.Parse(value.GetType(), parameterString);
+            var enumType = value.GetType();
+            if (Enum.TryParse(enumType, str, out var parameterValue) is false)
+                return null;
 
             return parameterValue.Equals(value);
         }
 
-        return UnsetValue;
+        return null;
     }
 
+    /// <inheritdoc/>
     public override object? ConvertBack(
         object? value,
         Type targetType,
@@ -39,10 +39,8 @@ public class EnumToBoolConverter : ValueConverterBase<EnumToBoolConverter>
     )
     {
         if (parameter is string parameterString)
-        {
             return Enum.Parse(targetType, parameterString);
-        }
 
-        return UnsetValue;
+        return null;
     }
 }

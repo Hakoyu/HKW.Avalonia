@@ -3,8 +3,12 @@ using System.Diagnostics;
 
 namespace HKW.HKWAvalonia.Converters;
 
+/// <summary>
+/// 调试转换器
+/// </summary>
 public class DebugConverter : ValueConverterBase<DebugConverter>
 {
+    /// <inheritdoc/>
     public override object? Convert(
         object? value,
         Type targetType,
@@ -13,16 +17,13 @@ public class DebugConverter : ValueConverterBase<DebugConverter>
     )
     {
         Debug.WriteLine(
-            "DebugConverter.Convert(_value={0}, targetType={1}, parameter={2}, culture={3}",
-            value ?? "null",
-            (object)targetType ?? "null",
-            parameter ?? "null",
-            (object)culture ?? "null"
+            $"DebugConverter.Convert(value={value}, targetType={targetType}, parameter={parameter}, culture={culture})"
         );
 
         return value;
     }
 
+    /// <inheritdoc/>
     public override object? ConvertBack(
         object? value,
         Type targetType,
@@ -31,11 +32,7 @@ public class DebugConverter : ValueConverterBase<DebugConverter>
     )
     {
         Debug.WriteLine(
-            "DebugConverter.ConvertBack(_value={0}, targetType={1}, parameter={2}, culture={3}",
-            value ?? "null",
-            (object)targetType ?? "null",
-            parameter ?? "null",
-            (object)culture ?? "null"
+            $"DebugConverter.ConvertBack(value={value}, targetType={targetType}, parameter={parameter}, culture={culture})"
         );
 
         return value;

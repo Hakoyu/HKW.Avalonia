@@ -5,19 +5,25 @@
   xmlns:c="https://hkw.com/avalonia"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:vm="using:HKW.Avalonia.ViewModels"
   d:DesignHeight="450"
   d:DesignWidth="800"
+  x:DataType="vm:MainVM"
   mc:Ignorable="d">
+  <Design.DataContext>
+    <vm:MainVM />
+  </Design.DataContext>
   <UserControl.Resources>
-    <c:BoolInverter x:Key="BoolInverter" />
+    <c:BoolInverteConverter x:Key="BoolInverteConverter" />
+    <c:StringCaseConverter x:Key="StringCaseConverter" />
   </UserControl.Resources>
   <StackPanel>
     <TextBlock
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch"
       Background="Aqua"
-      IsVisible="{Binding #Switch.IsChecked, Converter={StaticResource BoolInverter}}"
-      Text="114514" />
-    <ToggleSwitch x:Name="Switch" />
+      Text="{Binding #TextBox1.Text, Converter={StaticResource StringCaseConverter}, ConverterParameter=U}" />
+    <TextBox x:Name="TextBox1" />
+    <TextBox x:Name="TextBox2" />
   </StackPanel>
 </UserControl>

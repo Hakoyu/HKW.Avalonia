@@ -2,4 +2,7 @@
 
 namespace HKW.HKWAvalonia.Converters;
 
-public class BoolToStyleConverter : BoolToValueConverter<Style> { }
+/// <summary>
+/// 布尔到样式转换器
+/// </summary>
+public class BoolToStyleConverter : BoolToValueConverter<Style, BoolToStyleConverter> { }

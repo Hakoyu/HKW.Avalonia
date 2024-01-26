@@ -4,11 +4,11 @@ using System.Globalization;
 namespace HKW.HKWAvalonia.Converters;
 
 /// <summary>
-/// Converts given value into an IEnumerable containing the value as single object.
-/// This is particularly useful if you have a control which accepts IEnumerable but you only want to bind a single value.
+/// 值到集合转换器
 /// </summary>
 public class ValueToEnumerableConverter : ValueConverterBase<ValueToEnumerableConverter>
 {
+    /// <inheritdoc/>
     public override object? Convert(
         object? value,
         Type targetType,
@@ -16,11 +16,9 @@ public class ValueToEnumerableConverter : ValueConverterBase<ValueToEnumerableCo
         CultureInfo culture
     )
     {
-        if (value != null)
-        {
-            return new object[1] { value };
-        }
+        if (value is not null)
+            return new object[] { value };
 
-        return UnsetValue;
+        return null;
     }
 }

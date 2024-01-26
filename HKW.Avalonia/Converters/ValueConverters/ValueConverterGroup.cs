@@ -7,13 +7,18 @@ using System.Linq;
 namespace HKW.HKWAvalonia.Converters;
 
 /// <summary>
-/// Value converters which aggregates the results of a sequence of converters: Converter1 >> Converter2 >> Converter3
-/// The output of converter N becomes the input of converter N+1.
+/// 值转换器组
+/// <para>
+/// 用于汇总转换器信息
+/// </para>
 /// </summary>
 public class ValueConverterGroup : ValueConverterBase<ValueConverterGroup>
 {
+    /// <summary>
+    /// 转换器
+    /// </summary>
     public List<IValueConverter> Converters { get; set; } = [];
-
+    /// <inheritdoc/>
     public override object? Convert(
         object? value,
         Type targetType,
@@ -22,14 +27,14 @@ public class ValueConverterGroup : ValueConverterBase<ValueConverterGroup>
     )
     {
         if (Converters is not IEnumerable<IValueConverter> converters)
-            return UnsetValue;
+            return null;
 
         return converters.Aggregate(
             value,
             (current, converter) => converter.Convert(current, targetType, parameter, culture)
         );
     }
-
+    /// <inheritdoc/>
     public override object? ConvertBack(
         object? value,
         Type targetType,
@@ -38,7 +43,7 @@ public class ValueConverterGroup : ValueConverterBase<ValueConverterGroup>
     )
     {
         if (Converters is not IEnumerable<IValueConverter> converters)
-            return UnsetValue;
+            return null;
 
         return converters
             .Reverse()

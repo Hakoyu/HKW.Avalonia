@@ -3,14 +3,33 @@ using System.Globalization;
 
 namespace HKW.HKWAvalonia.Converters;
 
+/// <summary>
+/// 值转换器基类
+/// </summary>
+/// <typeparam name="TConverter">转换类型</typeparam>
 public abstract class ValueConverterBase<TConverter> : ConverterBase, IValueConverter
     where TConverter : ValueConverterBase<TConverter>, new()
 {
-    private static readonly Lazy<TConverter> InstanceConstructor =
-        new(() => new TConverter(), LazyThreadSafetyMode.PublicationOnly);
+    /// <summary>
+    /// 单例
+    /// </summary>
+    public static TConverter Instance { get; } =
+        new Lazy<TConverter>(() => new TConverter(), LazyThreadSafetyMode.PublicationOnly).Value;
 
-    public static TConverter Instance => InstanceConstructor.Value;
+#if DEBUG
+    /// <inheritdoc/>
+    public ValueConverterBase()
+    {
+        var sourceType = GetType();
+        var instanceType = typeof(TConverter);
+        if (sourceType != instanceType)
+            throw new InvalidCastException(
+                $"Instance type error\nSource type:{sourceType.FullName}\nInstance type:{instanceType.FullName}"
+            );
+    }
+#endif
 
+    /// <inheritdoc/>
     public abstract object? Convert(
         object? value,
         Type targetType,
@@ -18,6 +37,7 @@ public abstract class ValueConverterBase<TConverter> : ConverterBase, IValueConv
         CultureInfo culture
     );
 
+    /// <inheritdoc/>
     public virtual object? ConvertBack(
         object? value,
         Type targetType,
@@ -37,7 +57,7 @@ public abstract class ValueConverterBase<TConverter> : ConverterBase, IValueConv
         CultureInfo culture
     )
     {
-        return Convert(value, targetType, parameter, SelectCulture(() => culture));
+        return Convert(value, targetType, parameter, SelectCulture(() => culture))?.ToString();
     }
 
     object? IValueConverter.ConvertBack(

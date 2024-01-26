@@ -4,7 +4,7 @@ using System.Globalization;
 namespace HKW.HKWAvalonia.Converters;
 
 /// <summary>
-/// Changes capitalization of a string.
+/// 字符串大小写转换器
 /// </summary>
 /// <example>
 /// Convert a string to lower case:
@@ -18,6 +18,7 @@ namespace HKW.HKWAvalonia.Converters;
 /// </example>
 public class StringCaseConverter : ValueConverterBase<StringCaseConverter>
 {
+    /// <inheritdoc/>
     public override object? Convert(
         object? value,
         Type targetType,
@@ -27,21 +28,22 @@ public class StringCaseConverter : ValueConverterBase<StringCaseConverter>
     {
         if (value is string stringValue)
         {
-            var stringParameter = $"{parameter}";
-
-            return stringParameter switch
+            return parameter?.ToString() switch
             {
+                // 大写
                 "U" or "u" => culture.TextInfo.ToUpper(stringValue),
+                // 小写
                 "L" or "l" => culture.TextInfo.ToLower(stringValue),
+                // 标题
                 "T" or "t" => culture.TextInfo.ToTitleCase(stringValue),
                 _
                     => throw new ArgumentException(
-                        $"Parameter '{stringParameter}' is not valid",
+                        $"Parameter '{parameter}' is not valid",
                         nameof(parameter)
                     ),
             };
         }
 
-        return UnsetValue;
+        return null;
     }
 }

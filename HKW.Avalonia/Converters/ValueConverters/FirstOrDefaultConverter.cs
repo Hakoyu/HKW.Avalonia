@@ -4,8 +4,12 @@ using System.Globalization;
 
 namespace HKW.HKWAvalonia.Converters;
 
+/// <summary>
+/// 第一个或默认转换器
+/// </summary>
 public class FirstOrDefaultConverter : ValueConverterBase<FirstOrDefaultConverter>
 {
+    /// <inheritdoc/>
     public override object? Convert(
         object? value,
         Type targetType,
@@ -17,13 +21,13 @@ public class FirstOrDefaultConverter : ValueConverterBase<FirstOrDefaultConverte
         {
             var enumerator = enumerable.GetEnumerator();
             {
-                if (enumerator.MoveNext())
+                if (enumerable.GetEnumerator().MoveNext())
                 {
                     return enumerator.Current;
                 }
             }
         }
 
-        return UnsetValue;
+        return null;
     }
 }

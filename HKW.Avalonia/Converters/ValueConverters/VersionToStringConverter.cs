@@ -4,14 +4,17 @@ using System.Globalization;
 namespace HKW.HKWAvalonia.Converters;
 
 /// <summary>
-/// Converts System.Version objects to string. Parameter can be used to limit the number of Version components to return.
+/// 版本到字符串转换器
+/// <example>
 /// [1] Major Version
 /// [2] Minor Version
 /// [3] Build Number
 /// [4] Revision
+/// </example>
 /// </summary>
 public class VersionToStringConverter : ValueConverterBase<VersionToStringConverter>
 {
+    /// <inheritdoc/>
     public override object? Convert(
         object? value,
         Type targetType,
@@ -19,17 +22,12 @@ public class VersionToStringConverter : ValueConverterBase<VersionToStringConver
         CultureInfo culture
     )
     {
-        var version = value as Version;
-        if (version != null)
+        if (value is not Version version)
+            return null;
+        if (int.TryParse(parameter as string, out int fieldCount))
         {
-            if (int.TryParse(parameter as string, out int fieldCount))
-            {
-                return version.ToString(fieldCount);
-            }
-
-            return version.ToString();
+            return version.ToString(fieldCount);
         }
-
-        return UnsetValue;
+        return version.ToString();
     }
 }

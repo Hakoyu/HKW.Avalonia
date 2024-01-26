@@ -3,10 +3,17 @@ using System.Globalization;
 
 namespace HKW.HKWAvalonia.Converters;
 
+/// <summary>
+/// 字符串到十进制转换器
+/// </summary>
 public class StringToDecimalConverter : ValueConverterBase<StringToDecimalConverter>
 {
+    /// <summary>
+    /// 默认数字风格
+    /// </summary>
     private static readonly NumberStyles DefaultNumberStyles = NumberStyles.Any;
 
+    /// <inheritdoc/>
     public override object? Convert(
         object? value,
         Type targetType,
@@ -14,32 +21,22 @@ public class StringToDecimalConverter : ValueConverterBase<StringToDecimalConver
         CultureInfo culture
     )
     {
-        var dec = value as decimal?;
-        if (dec != null)
+        if (value is decimal dec)
         {
-            return dec.Value.ToString("G", culture ?? CultureInfo.InvariantCulture);
+            return dec.ToString("G", culture);
         }
 
         if (value is string str)
         {
-            if (
-                decimal.TryParse(
-                    str,
-                    DefaultNumberStyles,
-                    culture ?? CultureInfo.InvariantCulture,
-                    out decimal result
-                )
-            )
-            {
+            if (decimal.TryParse(str, DefaultNumberStyles, culture, out var result))
                 return result;
-            }
-
             return result;
         }
 
-        return UnsetValue;
+        return null;
     }
 
+    /// <inheritdoc/>
     public override object? ConvertBack(
         object? value,
         Type targetType,
@@ -47,6 +44,6 @@ public class StringToDecimalConverter : ValueConverterBase<StringToDecimalConver
         CultureInfo culture
     )
     {
-        return this.Convert(value, targetType, parameter, culture);
+        return Convert(value, targetType, parameter, culture);
     }
 }

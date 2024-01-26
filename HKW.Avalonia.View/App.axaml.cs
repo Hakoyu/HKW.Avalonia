@@ -2,7 +2,7 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-
+using HKW.Avalonia.ViewModels;
 using HKW.Avalonia.Views;
 
 namespace HKW.Avalonia;
@@ -23,12 +23,12 @@ public partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // 用于桌面
-            desktop.MainWindow = new MainWindow();
+            desktop.MainWindow = new MainWindow() { DataContext = new MainVM() };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
             // 用于单页面视图(例如网页和手机)
-            singleViewPlatform.MainView = new MainView();
+            singleViewPlatform.MainView = new MainView() { DataContext = new MainVM() };
         }
 
         base.OnFrameworkInitializationCompleted();

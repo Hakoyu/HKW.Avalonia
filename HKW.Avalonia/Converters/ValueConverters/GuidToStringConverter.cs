@@ -1,21 +1,51 @@
-﻿using System;
+﻿using Avalonia;
+using System;
 
 namespace HKW.HKWAvalonia.Converters;
 
 /// <summary>
-/// Converts a <seealso cref="Guid"/> to <seealso cref="string"/>
+/// Guid到字符串转换器
 /// </summary>
 public class GuidToStringConverter : ValueConverterBase<GuidToStringConverter>
 {
     /// <summary>
-    /// Determines if the string needs to be upper case.
+    /// 默认格式化
     /// </summary>
-    public bool ToUpper { get; set; }
+    protected const string DefaultFormat = "D";
 
     /// <summary>
-    /// The format used to convert the Guid to string.
+    ///
     /// </summary>
-    public string Format { get; set; } = "D";
+    public static readonly StyledProperty<bool> ToUpperProperty = AvaloniaProperty.Register<
+        GuidToStringConverter,
+        bool
+    >(nameof(ToUpper));
+
+    /// <summary>
+    /// 转换为大写
+    /// </summary>
+    public bool ToUpper
+    {
+        get => GetValue(ToUpperProperty);
+        set => SetValue(ToUpperProperty, value);
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    public static readonly StyledProperty<string> FormatProperty = AvaloniaProperty.Register<
+        GuidToStringConverter,
+        string
+    >(nameof(Format), DefaultFormat);
+
+    /// <summary>
+    /// 格式化
+    /// </summary>
+    public string Format
+    {
+        get => GetValue(FormatProperty);
+        set => SetValue(FormatProperty, value);
+    }
 
     /// <inheritdoc/>
     public override object? Convert(
@@ -27,17 +57,15 @@ public class GuidToStringConverter : ValueConverterBase<GuidToStringConverter>
     {
         if (value is Guid guid)
         {
-            var guidString = guid.ToString(this.Format);
+            var guidString = guid.ToString(Format);
 
-            if (this.ToUpper)
-            {
+            if (ToUpper)
                 return guidString.ToUpperInvariant();
-            }
 
             return guidString;
         }
 
-        return UnsetValue;
+        return null;
     }
 
     /// <inheritdoc/>
@@ -54,6 +82,6 @@ public class GuidToStringConverter : ValueConverterBase<GuidToStringConverter>
             return guid;
         }
 
-        return UnsetValue;
+        return null;
     }
 }

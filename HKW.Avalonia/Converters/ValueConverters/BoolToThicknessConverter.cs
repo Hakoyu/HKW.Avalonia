@@ -2,4 +2,8 @@
 
 namespace HKW.HKWAvalonia.Converters;
 
-public class BoolToThicknessConverter : BoolToValueConverter<Thickness> { }
+/// <summary>
+/// 布尔到厚度转换器
+/// </summary>
+public class BoolToThicknessConverter
+    : BoolToValueConverter<Thickness, BoolToThicknessConverter> { }

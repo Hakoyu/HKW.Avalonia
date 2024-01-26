@@ -3,20 +3,23 @@ using System.Globalization;
 
 namespace HKW.HKWAvalonia.Converters;
 
+/// <summary>
+/// 首选文化
+/// </summary>
 public enum PreferredCulture
 {
     /// <summary>
-    /// Uses the default culture provided by <seealso cref="IValueConverter"/>.
+    /// 转换器文化
     /// </summary>
     ConverterCulture,
 
     /// <summary>
-    /// Overrides the default converter culture with <seealso cref="CultureInfo.CurrentCulture"/>.
+    /// 当前文化
     /// </summary>
     CurrentCulture,
 
     /// <summary>
-    /// Overrides the default converter culture with <seealso cref="CultureInfo.CurrentUICulture"/>.
+    /// 当前UI文化
     /// </summary>
     CurrentUICulture,
 }

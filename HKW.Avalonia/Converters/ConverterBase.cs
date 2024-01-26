@@ -5,9 +5,15 @@ using System.Globalization;
 
 namespace HKW.HKWAvalonia.Converters;
 
+/// <summary>
+/// 转换器基类
+/// </summary>
 public abstract class ConverterBase : AvaloniaObject
 {
-    public static readonly object UnsetValue = AvaloniaProperty.UnsetValue;
+    /// <summary>
+    /// 未设置值
+    /// </summary>
+    public static object UnsetValue { get; } = AvaloniaProperty.UnsetValue;
 
     /// <summary>
     /// Allows to override the default culture used in <seealso cref="IValueConverter"/> for the current converter.
@@ -16,6 +22,11 @@ public abstract class ConverterBase : AvaloniaObject
     public PreferredCulture PreferredCulture { get; set; } =
         ValueConvertersConfig.DefaultPreferredCulture;
 
+    /// <summary>
+    /// 选择文化
+    /// </summary>
+    /// <param name="converterCulture"></param>
+    /// <returns></returns>
     protected CultureInfo SelectCulture(Func<CultureInfo> converterCulture)
     {
         return PreferredCulture switch

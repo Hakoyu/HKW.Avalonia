@@ -84,7 +84,7 @@ public class CalculatorConverter : MultiValueConverterBase<CalculatorConverter>
     /// <param name="operatorChar">符号</param>
     /// <param name="value2">值2</param>
     /// <returns>结果</returns>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <exception cref="NotImplementedException">不支持的符号</exception>
     public static double Operation(double value1, char operatorChar, double value2)
     {
         return operatorChar switch
@@ -94,7 +94,7 @@ public class CalculatorConverter : MultiValueConverterBase<CalculatorConverter>
             '*' => value1 * value2,
             '/' => value1 / value2,
             '%' => value1 % value2,
-            _ => throw new NotImplementedException(),
+            _ => throw new NotImplementedException($"Unsupported operator '{operatorChar}'"),
         };
     }
 }

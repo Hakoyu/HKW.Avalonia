@@ -15,26 +15,25 @@ namespace HKW.HKWAvalonia.Converters;
 /// </summary>
 public class EqualsConverter : MultiValueConverterBase<EqualsConverter>
 {
+    /// <summary>
+    ///
+    /// </summary>
     public static readonly StyledProperty<bool> IsInvertedProperty = AvaloniaProperty.Register<
         EqualsConverter,
         bool
     >(nameof(IsInverted));
 
+    /// <summary>
+    /// 是反转的
+    /// </summary>
     public bool IsInverted
     {
         get => GetValue(IsInvertedProperty);
         set => SetValue(IsInvertedProperty, value);
     }
 
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="values"></param>
-    /// <param name="targetType"></param>
-    /// <param name="parameter"></param>
-    /// <param name="culture"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <inheritdoc/>
+    /// <exception cref="NotImplementedException">参数必须为2</exception>
     public override object? Convert(
         IList<object?> values,
         Type targetType,

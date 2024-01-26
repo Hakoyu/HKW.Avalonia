@@ -26,10 +26,17 @@ namespace HKW.HKWAvalonia.Converters;
 /// </summary>
 public class MarginConverter : MultiValueConverterBase<MarginConverter>
 {
+    /// <summary>
+    ///
+    /// </summary>
     public static readonly StyledProperty<bool> HasRatioProperty = AvaloniaProperty.Register<
         MarginConverter,
         bool
     >(nameof(HasRatio));
+
+    /// <summary>
+    /// 有比率
+    /// </summary>
     public bool HasRatio
     {
         get => GetValue(HasRatioProperty);

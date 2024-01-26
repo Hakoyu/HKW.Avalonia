@@ -4,19 +4,29 @@ using System.Globalization;
 
 namespace HKW.HKWAvalonia.Converters;
 
+/// <summary>
+/// 字符串是null或者空转换器
+/// </summary>
 public class StringIsNullOrEmptyConverter : ValueConverterBase<StringIsNullOrEmptyConverter>
 {
+    /// <summary>
+    ///
+    /// </summary>
     public static readonly StyledProperty<bool> IsInvertedProperty = AvaloniaProperty.Register<
         StringIsNullOrEmptyConverter,
         bool
     >(nameof(IsInverted));
 
+    /// <summary>
+    /// 是反转的
+    /// </summary>
     public bool IsInverted
     {
         get => GetValue(IsInvertedProperty);
         set => SetValue(IsInvertedProperty, value);
     }
 
+    /// <inheritdoc/>
     public override object? Convert(
         object? value,
         Type targetType,
@@ -24,11 +34,6 @@ public class StringIsNullOrEmptyConverter : ValueConverterBase<StringIsNullOrEmp
         CultureInfo culture
     )
     {
-        if (IsInverted)
-        {
-            return !string.IsNullOrEmpty(value as string);
-        }
-
-        return string.IsNullOrEmpty(value as string);
+        return string.IsNullOrEmpty(value as string) ^ IsInverted;
     }
 }
