@@ -16,13 +16,20 @@
   <UserControl.Resources>
     <c:BoolInverteConverter x:Key="BoolInverteConverter" />
     <c:StringCaseConverter x:Key="StringCaseConverter" />
+    <c:StringFormatConverter x:Key="StringFormatConverter" />
   </UserControl.Resources>
   <StackPanel>
     <TextBlock
       HorizontalAlignment="Stretch"
       VerticalAlignment="Stretch"
-      Background="Aqua"
-      Text="{Binding #TextBox1.Text, Converter={StaticResource StringCaseConverter}, ConverterParameter=U}" />
+      Background="Aqua">
+      <TextBlock.Text>
+        <MultiBinding Converter="{StaticResource StringFormatConverter}" ConverterParameter="{}1 = {0} 2 = {1}">
+          <Binding ElementName="TextBox1" Path="Text" />
+          <Binding ElementName="TextBox2" Path="Text" />
+        </MultiBinding>
+      </TextBlock.Text>
+    </TextBlock>
     <TextBox x:Name="TextBox1" />
     <TextBox x:Name="TextBox2" />
   </StackPanel>

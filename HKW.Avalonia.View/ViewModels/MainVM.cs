@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using HKW.HKWAvalonia.Converters;
+using System.ComponentModel.DataAnnotations;
 
 namespace HKW.Avalonia.ViewModels;
 

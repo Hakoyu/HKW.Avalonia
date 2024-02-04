@@ -35,14 +35,14 @@ public class StringFormatConverter : MultiValueConverterBase<StringFormatConvert
         CultureInfo culture
     )
     {
-        if (parameter is string formatStr && string.IsNullOrWhiteSpace(formatStr))
+        if (parameter is string format && string.IsNullOrWhiteSpace(format) is false)
         {
-            return string.Format(formatStr, values);
+            return string.Format(format, values.Select(GetString).ToArray());
         }
         else
         {
-            formatStr = (string)values[0]!;
-            return string.Format(formatStr, values.Skip(1).ToArray());
+            format = (string)values[0]!;
+            return string.Format(format, values.Skip(1).Select(GetString).ToArray());
         }
     }
 }

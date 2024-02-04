@@ -36,4 +36,17 @@ public abstract class ConverterBase : AvaloniaObject
             _ => converterCulture(),
         };
     }
+
+    /// <summary>
+    /// 获取字符串
+    /// </summary>
+    /// <param name="value">值</param>
+    /// <returns>字符串</returns>
+    public static string GetString(object? value)
+    {
+        if (value is null || value == UnsetValue)
+            return string.Empty;
+        else
+            return value.ToString()!;
+    }
 }

@@ -84,7 +84,7 @@ public class DateTimeToStringConverter : ValueConverterBase<DateTimeToStringConv
                 return MinValueString;
             }
 
-            var localDateTime = dateTime.WithTimeZone(_timeZone.Local);
+            var localDateTime = TimeZoneInfo.ConvertTime(dateTime, _timeZone.Local);
             return localDateTime.ToString(Format, culture);
         }
 
@@ -110,7 +110,7 @@ public class DateTimeToStringConverter : ValueConverterBase<DateTimeToStringConv
             {
                 if (DateTime.TryParse(str, out var parsedDateTime))
                 {
-                    return parsedDateTime.WithTimeZone(_timeZone.Utc);
+                    return TimeZoneInfo.ConvertTime(parsedDateTime, _timeZone.Utc);
                 }
             }
         }

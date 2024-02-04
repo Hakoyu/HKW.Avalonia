@@ -83,7 +83,9 @@ public class DateTimeOffsetToStringConverter : ValueConverterBase<DateTimeOffset
                 return MinValueString;
             }
 
-            return dateTimeOffset.WithTimeZone(_timeZone.Local).ToString(Format, culture);
+            return TimeZoneInfo
+                .ConvertTime(dateTimeOffset, _timeZone.Local)
+                .ToString(Format, culture);
         }
 
         return null;
@@ -108,7 +110,7 @@ public class DateTimeOffsetToStringConverter : ValueConverterBase<DateTimeOffset
             {
                 if (DateTimeOffset.TryParse(str, out var parsedDateTimeOffset))
                 {
-                    return parsedDateTimeOffset.WithTimeZone(_timeZone.Utc);
+                    return TimeZoneInfo.ConvertTime(parsedDateTimeOffset, _timeZone.Utc);
                 }
             }
         }
