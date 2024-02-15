@@ -1,5 +1,5 @@
 <UserControl
-  x:Class="HKW.Avalonia.Views.MainView"
+  x:Class="HKW.Avalonia.Views.TestView"
   xmlns="https://github.com/avaloniaui"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:c="https://hkw.com/avalonia"
@@ -13,12 +13,5 @@
   <Design.DataContext>
     <vm:MainVM />
   </Design.DataContext>
-  <UserControl.Resources>
-    <c:BoolInverteConverter x:Key="BoolInverteConverter" />
-    <c:StringCaseConverter x:Key="StringCaseConverter" />
-    <c:StringFormatConverter x:Key="StringFormatConverter" />
-  </UserControl.Resources>
-  <StackPanel>
-    <Button Command="{Binding ShowMessageBoxCommand}" Content="ShowMessageBox" />
-  </StackPanel>
+
 </UserControl>

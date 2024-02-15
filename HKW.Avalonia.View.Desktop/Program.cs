@@ -1,9 +1,9 @@
 ﻿using System;
 
 using Avalonia;
-using HKW.HKWAvalonia;
+using HKW.Avalonia;
 
-namespace HKW.Avalonia.Desktop;
+namespace HKW.Avalonia.View.Desktop;
 
 class Program
 {
