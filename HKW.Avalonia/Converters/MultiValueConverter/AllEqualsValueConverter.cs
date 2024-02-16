@@ -8,26 +8,10 @@ namespace HKW.HKWAvalonia.Converters;
 /// <summary>
 /// 全部相等于值转换器
 /// </summary>
-public class AllEqualsValueConverter<T, TConverter> : MultiValueConverterBase<TConverter>
+public abstract class AllEqualsValueConverter<T, TConverter>
+    : InvertibleMultiValueConverterBase<TConverter>
     where TConverter : AllEqualsValueConverter<T, TConverter>, new()
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public static readonly StyledProperty<bool> IsInvertedProperty = AvaloniaProperty.Register<
-        AllEqualsValueConverter<T, TConverter>,
-        bool
-    >(nameof(IsInverted));
-
-    /// <summary>
-    /// 是反转的
-    /// </summary>
-    public bool IsInverted
-    {
-        get => GetValue(IsInvertedProperty);
-        set => SetValue(IsInvertedProperty, value);
-    }
-
     /// <summary>
     ///
     /// </summary>

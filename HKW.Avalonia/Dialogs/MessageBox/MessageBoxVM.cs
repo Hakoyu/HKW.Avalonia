@@ -12,11 +12,6 @@ namespace HKW.HKWAvalonia.Dialogs;
 /// </summary>
 public partial class MessageBoxVM : DialogViewModelBase
 {
-    /// <summary>
-    /// 按钮
-    /// </summary>
-    public MessageBoxButton Button { get; set; } = MessageBoxButton.Ok;
-
     /// <inheritdoc/>
     public MessageBoxVM() { }
 
@@ -39,6 +34,21 @@ public partial class MessageBoxVM : DialogViewModelBase
     /// </summary>
     [ObservableProperty]
     private string? _message;
+
+    /// <summary>
+    /// 按钮
+    /// </summary>
+    [ObservableProperty]
+    private MessageBoxButton _button = MessageBoxButton.Ok;
+
+    /// <summary>
+    /// 反转按钮位置
+    /// <para>
+    /// 默认 Yes 或 OK 是在左边 No Cancel 在右边
+    /// </para>
+    /// </summary>
+    [ObservableProperty]
+    private bool _invertButtonPosition;
 
     #endregion
 

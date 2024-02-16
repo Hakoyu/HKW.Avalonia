@@ -4,30 +4,18 @@ using System.Globalization;
 namespace HKW.HKWAvalonia.Converters;
 
 /// <summary>
-/// 全部相等于值转换器
+/// 任意相等于值转换器
+/// </summary>
+public class AnyEqualsValueConverter : AnyEqualsValueConverter<object, AnyEqualsValueConverter> { }
+
+/// <summary>
+/// 任意相等于值转换器
 /// </summary>
 /// <typeparam name="T">值类型</typeparam>
 /// <typeparam name="TConverter">转换器类型</typeparam>
-public class AnyEqualsValueConverter<T, TConverter> : MultiValueConverterBase<TConverter>
-    where TConverter : MultiValueConverterBase<TConverter>, new()
+public class AnyEqualsValueConverter<T, TConverter> : InvertibleMultiValueConverterBase<TConverter>
+    where TConverter : AnyEqualsValueConverter<T, TConverter>, new()
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public static readonly StyledProperty<bool> IsInvertedProperty = AvaloniaProperty.Register<
-        AnyEqualsValueConverter<T, TConverter>,
-        bool
-    >(nameof(IsInverted));
-
-    /// <summary>
-    /// 是反转的
-    /// </summary>
-    public bool IsInverted
-    {
-        get => GetValue(IsInvertedProperty);
-        set => SetValue(IsInvertedProperty, value);
-    }
-
     /// <summary>
     ///
     /// </summary>

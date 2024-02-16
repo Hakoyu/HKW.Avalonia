@@ -8,7 +8,8 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using HanumanInstitute.MvvmDialogs;
 using HanumanInstitute.MvvmDialogs.Avalonia;
 using System;
-using HKW.HKWAvalonia.Dialogs;
+
+//using HKW.HKWAvalonia.Dialogs;
 
 namespace HKW.Avalonia;
 
@@ -17,6 +18,6 @@ public class ViewLocator : StrongViewLocator
     public ViewLocator()
     {
         Register<MainVM, MainView, MainWindow>();
-        this.AddHKWDialogs();
+        //this.AddHKWDialogs();
     }
 }

@@ -6,13 +6,13 @@ namespace HKW.HKWAvalonia.Converters;
 /// 字符串格式化器
 /// <para>示例:
 /// <code><![CDATA[
-/// <MultiBinding Converter="{StaticResource MarginConverter}">
+/// <MultiBinding Converter="{StaticResource StringFormatConverter}">
 ///   <Binding Path="StringFormat" />
 ///   <Binding Path="Value1" />
 ///   <Binding Path="Value2" />
 /// </MultiBinding>
 /// OR
-/// <MultiBinding Converter="{StaticResource MarginConverter}" ConverterParameter="{}{0}{1}">
+/// <MultiBinding Converter="{StaticResource StringFormatConverter}" ConverterParameter="{}{0}{1}">
 ///   <Binding Path="Value1" />
 ///   <Binding Path="Value2" />
 /// </MultiBinding>

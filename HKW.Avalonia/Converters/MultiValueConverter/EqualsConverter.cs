@@ -7,31 +7,14 @@ namespace HKW.HKWAvalonia.Converters;
 /// 相等转换器
 /// <para>示例:
 /// <code><![CDATA[
-/// <MultiBinding Converter="{StaticResource RatioMarginConverter}">
+/// <MultiBinding Converter="{StaticResource EqualsConverter}">
 ///   <Binding Path="Value1" />
 ///   <Binding Path="Value2" />
 /// </MultiBinding>
 /// ]]></code></para>
 /// </summary>
-public class EqualsConverter : MultiValueConverterBase<EqualsConverter>
+public class EqualsConverter : InvertibleMultiValueConverterBase<EqualsConverter>
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public static readonly StyledProperty<bool> IsInvertedProperty = AvaloniaProperty.Register<
-        EqualsConverter,
-        bool
-    >(nameof(IsInverted));
-
-    /// <summary>
-    /// 是反转的
-    /// </summary>
-    public bool IsInverted
-    {
-        get => GetValue(IsInvertedProperty);
-        set => SetValue(IsInvertedProperty, value);
-    }
-
     /// <inheritdoc/>
     /// <exception cref="NotImplementedException">参数必须为2</exception>
     public override object? Convert(
@@ -42,7 +25,7 @@ public class EqualsConverter : MultiValueConverterBase<EqualsConverter>
     )
     {
         if (values.Count != 2)
-            throw new NotImplementedException("Values length must be 2");
-        return values[0]?.Equals(values[1]) ^ IsInverted;
+            throw new ArgumentException("Values count must be 2");
+        return values[0]?.Equals(values[1]) is true ^ IsInverted;
     }
 }
