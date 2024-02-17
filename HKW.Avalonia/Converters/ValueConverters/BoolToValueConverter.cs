@@ -8,7 +8,7 @@ namespace HKW.HKWAvalonia.Converters;
 /// </summary>
 /// <typeparam name="T">值类型</typeparam>
 /// <typeparam name="TConverter">转换器类型</typeparam>
-public class BoolToValueConverter<T, TConverter> : ValueConverterBase<TConverter>
+public class BoolToValueConverter<T, TConverter> : InvertibleValueConverterBase<TConverter>
     where TConverter : BoolToValueConverter<T, TConverter>, new()
 {
     /// <summary>
@@ -60,23 +60,6 @@ public class BoolToValueConverter<T, TConverter> : ValueConverterBase<TConverter
     {
         get => GetValue(NullValueProperty);
         set => SetValue(NullValueProperty, value);
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    public static readonly StyledProperty<bool> IsInvertedProperty = AvaloniaProperty.Register<
-        BoolToValueConverter<T, TConverter>,
-        bool
-    >(nameof(IsInverted));
-
-    /// <summary>
-    /// 是反转的
-    /// </summary>
-    public bool IsInverted
-    {
-        get => GetValue(IsInvertedProperty);
-        set => SetValue(IsInvertedProperty, value);
     }
 
     /// <inheritdoc/>

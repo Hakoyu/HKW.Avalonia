@@ -15,9 +15,9 @@ namespace HKW.HKWAvalonia.Converters;
 /// </MultiBinding>
 /// ]]></code></para>
 /// </summary>
-public abstract class EqualsToValueConverter<TValue, TConverter>
+public abstract class EqualsToValueMultiConverter<TValue, TConverter>
     : InvertibleMultiValueConverterBase<TConverter>
-    where TConverter : EqualsToValueConverter<TValue, TConverter>, new()
+    where TConverter : EqualsToValueMultiConverter<TValue, TConverter>, new()
 {
     /// <inheritdoc/>
     /// <exception cref="ArgumentException">参数数量必须为3或4</exception>

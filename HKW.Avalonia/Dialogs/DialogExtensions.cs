@@ -11,8 +11,19 @@ using System.Threading.Tasks;
 
 namespace HKW.HKWAvalonia.Dialogs;
 
+/// <summary>
+/// 对话框拓展
+/// </summary>
 public static class DialogExtensions
 {
+    /// <summary>
+    /// 显示消息窗口
+    /// </summary>
+    /// <param name="service"></param>
+    /// <param name="ownerViewModel"></param>
+    /// <param name="messageBox"></param>
+    /// <param name="hostSettings"></param>
+    /// <returns></returns>
     public static async Task<bool?> ShowMessageBoxAsync(
         this IDialogService service,
         INotifyPropertyChanged ownerViewModel,
@@ -21,6 +32,7 @@ public static class DialogExtensions
     )
     {
         hostSettings ??= new DialogHostSettings(messageBox);
+        hostSettings.Content ??= messageBox;
         await service.ShowDialogHostAsync(ownerViewModel, hostSettings);
         return messageBox.DialogResult;
     }

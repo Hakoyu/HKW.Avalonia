@@ -6,7 +6,8 @@ namespace HKW.HKWAvalonia.Converters;
 /// <summary>
 /// 任意相等于第一个转换器
 /// </summary>
-public class AnyEqualsFirstConverter : AnyEqualsFirstConverter<object, AnyEqualsFirstConverter> { }
+public class AnyEqualsFirstMultiConverter
+    : AnyEqualsFirstConverter<object, AnyEqualsFirstMultiConverter> { }
 
 /// <summary>
 /// 任意相等于第一个转换器

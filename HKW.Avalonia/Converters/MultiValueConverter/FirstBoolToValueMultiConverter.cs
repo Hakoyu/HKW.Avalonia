@@ -14,8 +14,8 @@ namespace HKW.HKWAvalonia.Converters;
 /// </MultiBinding>
 /// ]]></code></para>
 /// </summary>
-public class FirstBoolToValueConverter
-    : InvertibleMultiValueConverterBase<FirstBoolToValueConverter>
+public class FirstBoolToValueMultiConverter
+    : InvertibleMultiValueConverterBase<FirstBoolToValueMultiConverter>
 {
     /// <inheritdoc/>
     /// <exception cref="NotImplementedException">参数数量必须为2或3</exception>

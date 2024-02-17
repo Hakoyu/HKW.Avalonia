@@ -8,15 +8,15 @@ namespace HKW.HKWAvalonia.Converters;
 /// <summary>
 /// 全部相等于值转换器
 /// </summary>
-public abstract class AllEqualsValueConverter<T, TConverter>
+public abstract class AllEqualsValueMultiConverter<T, TConverter>
     : InvertibleMultiValueConverterBase<TConverter>
-    where TConverter : AllEqualsValueConverter<T, TConverter>, new()
+    where TConverter : AllEqualsValueMultiConverter<T, TConverter>, new()
 {
     /// <summary>
     ///
     /// </summary>
     public static readonly StyledProperty<T> ValueProperty = AvaloniaProperty.Register<
-        AllEqualsValueConverter<T, TConverter>,
+        AllEqualsValueMultiConverter<T, TConverter>,
         T
     >(nameof(Value));
 

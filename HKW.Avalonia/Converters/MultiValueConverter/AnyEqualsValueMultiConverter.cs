@@ -6,21 +6,23 @@ namespace HKW.HKWAvalonia.Converters;
 /// <summary>
 /// 任意相等于值转换器
 /// </summary>
-public class AnyEqualsValueConverter : AnyEqualsValueConverter<object, AnyEqualsValueConverter> { }
+public class AnyEqualsValueMultiConverter
+    : AnyEqualsValueMultiConverter<object, AnyEqualsValueMultiConverter> { }
 
 /// <summary>
 /// 任意相等于值转换器
 /// </summary>
 /// <typeparam name="T">值类型</typeparam>
 /// <typeparam name="TConverter">转换器类型</typeparam>
-public class AnyEqualsValueConverter<T, TConverter> : InvertibleMultiValueConverterBase<TConverter>
-    where TConverter : AnyEqualsValueConverter<T, TConverter>, new()
+public class AnyEqualsValueMultiConverter<T, TConverter>
+    : InvertibleMultiValueConverterBase<TConverter>
+    where TConverter : AnyEqualsValueMultiConverter<T, TConverter>, new()
 {
     /// <summary>
     ///
     /// </summary>
     public static readonly StyledProperty<T> ValueProperty = AvaloniaProperty.Register<
-        AnyEqualsValueConverter<T, TConverter>,
+        AnyEqualsValueMultiConverter<T, TConverter>,
         T
     >(nameof(Value));
 

@@ -8,25 +8,8 @@ namespace HKW.HKWAvalonia.Converters;
 /// <summary>
 /// 集合为空转换器
 /// </summary>
-public class CollectionIsEmptyConverter : ValueConverterBase<CollectionIsEmptyConverter>
+public class CollectionIsEmptyConverter : InvertibleValueConverterBase<CollectionIsEmptyConverter>
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public static readonly StyledProperty<bool> IsInvertedProperty = AvaloniaProperty.Register<
-        CollectionIsEmptyConverter,
-        bool
-    >(nameof(IsInverted));
-
-    /// <summary>
-    /// 是反转的
-    /// </summary>
-    public bool IsInverted
-    {
-        get => GetValue(IsInvertedProperty);
-        set => SetValue(IsInvertedProperty, value);
-    }
-
     /// <inheritdoc/>
     public override object? Convert(
         object? value,

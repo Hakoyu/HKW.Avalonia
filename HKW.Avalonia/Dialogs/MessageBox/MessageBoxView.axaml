@@ -12,11 +12,14 @@
   MinHeight="100"
   d:DesignHeight="200"
   d:DesignWidth="300"
+  x:CompileBindings="True"
   x:DataType="vm:MessageBoxVM"
   mc:Ignorable="d">
   <UserControl.Resources>
-    <c:AnyEqualsFirstConverter x:Key="AnyEqualsFirstConverter" />
-    <c:FirstBoolToValueConverter x:Key="FirstBoolToValueConverter" />
+    <c:EqualsConverter x:Key="EqualsConverter" />
+    <c:AnyEqualsFirstMultiConverter x:Key="AnyEqualsFirstMultiConverter" />
+    <c:FirstBoolToValueMultiConverter x:Key="FirstBoolToValueMultiConverter" />
+    <FontFamily x:Key="IconFont">avares://HKW.Avalonia/Assets/Fonts/#icomoon</FontFamily>
   </UserControl.Resources>
   <UserControl.Styles>
     <Style Selector="Button">
@@ -29,33 +32,58 @@
   <Design.DataContext>
     <vm:MessageBoxVM />
   </Design.DataContext>
-  <Grid RowDefinitions="Auto,*,Auto">
+  <Grid Margin="5" RowDefinitions="Auto,*,Auto">
     <Grid>
-      <TextBlock x:CompileBindings="True" Text="{Binding Title}" />
+      <TextBlock
+        x:Name="TitleTextBlock"
+        x:CompileBindings="True"
+        Text="{Binding Title}" />
     </Grid>
-    <TextBlock
+    <Grid
       Grid.Row="1"
-      MinHeight="50"
-      Margin="10"
-      x:CompileBindings="True"
-      Text="{Binding Message}" />
+      Margin="5"
+      ColumnDefinitions="Auto,*">
+      <TextBlock
+        x:Name="IconTextBlock"
+        VerticalAlignment="Center"
+        x:CompileBindings="True"
+        Background="{Binding IconText.Background}"
+        FontFamily="{StaticResource IconFont}"
+        FontSize="{Binding IconText.FontSize}"
+        Foreground="{Binding IconText.Foreground}"
+        Text="{Binding IconText.Text}">
+        <TextBlock.Effect>
+          <DropShadowEffect OffsetX="0" OffsetY="0" />
+        </TextBlock.Effect>
+      </TextBlock>
+      <TextBlock
+        x:Name="MessageTextBlock"
+        Grid.Column="1"
+        MinHeight="50"
+        Margin="10"
+        VerticalAlignment="Center"
+        x:CompileBindings="True"
+        Text="{Binding Message}" />
+    </Grid>
     <Grid
       Grid.Row="2"
+      Margin="5"
       HorizontalAlignment="Center"
       ColumnDefinitions="Auto,Auto,Auto">
       <Button
+        x:Name="YesButton"
         x:CompileBindings="True"
         Command="{Binding YesCommand}"
-        Content="Yes">
+        Content="{Binding YesContent}">
         <Button.IsVisible>
-          <MultiBinding Converter="{StaticResource AnyEqualsFirstConverter}">
+          <MultiBinding Converter="{StaticResource AnyEqualsFirstMultiConverter}">
             <Binding Path="Button" />
             <Binding Source="{x:Static t:MessageBoxButton.YesNo}" />
             <Binding Source="{x:Static t:MessageBoxButton.YesNoCancel}" />
           </MultiBinding>
         </Button.IsVisible>
         <Grid.Column>
-          <MultiBinding Converter="{StaticResource FirstBoolToValueConverter}">
+          <MultiBinding Converter="{StaticResource FirstBoolToValueMultiConverter}">
             <Binding Path="InvertButtonPosition" />
             <Binding>
               <Binding.Source>
@@ -71,18 +99,19 @@
         </Grid.Column>
       </Button>
       <Button
+        x:Name="NoButton"
         x:CompileBindings="True"
         Command="{Binding NoCommand}"
-        Content="No">
+        Content="{Binding NoContent}">
         <Button.IsVisible>
-          <MultiBinding Converter="{StaticResource AnyEqualsFirstConverter}">
+          <MultiBinding Converter="{StaticResource AnyEqualsFirstMultiConverter}">
             <Binding Path="Button" />
             <Binding Source="{x:Static t:MessageBoxButton.YesNo}" />
             <Binding Source="{x:Static t:MessageBoxButton.YesNoCancel}" />
           </MultiBinding>
         </Button.IsVisible>
         <Grid.Column>
-          <MultiBinding Converter="{StaticResource FirstBoolToValueConverter}">
+          <MultiBinding Converter="{StaticResource FirstBoolToValueMultiConverter}">
             <Binding Path="InvertButtonPosition" />
             <Binding>
               <Binding.Source>
@@ -98,18 +127,19 @@
         </Grid.Column>
       </Button>
       <Button
+        x:Name="OKButton"
         x:CompileBindings="True"
         Command="{Binding OKCommand}"
-        Content="OK">
+        Content="{Binding OKContent}">
         <Button.IsVisible>
-          <MultiBinding Converter="{StaticResource AnyEqualsFirstConverter}">
+          <MultiBinding Converter="{StaticResource AnyEqualsFirstMultiConverter}">
             <Binding Path="Button" />
             <Binding Source="{x:Static t:MessageBoxButton.Ok}" />
             <Binding Source="{x:Static t:MessageBoxButton.OkCancel}" />
           </MultiBinding>
         </Button.IsVisible>
         <Grid.Column>
-          <MultiBinding Converter="{StaticResource FirstBoolToValueConverter}">
+          <MultiBinding Converter="{StaticResource FirstBoolToValueMultiConverter}">
             <Binding Path="InvertButtonPosition" />
             <Binding>
               <Binding.Source>
@@ -125,18 +155,19 @@
         </Grid.Column>
       </Button>
       <Button
+        x:Name="CancelButton"
         x:CompileBindings="True"
         Command="{Binding CancelCommand}"
-        Content="Cancel">
+        Content="{Binding CancelContent}">
         <Button.IsVisible>
-          <MultiBinding Converter="{StaticResource AnyEqualsFirstConverter}">
+          <MultiBinding Converter="{StaticResource AnyEqualsFirstMultiConverter}">
             <Binding Path="Button" />
             <Binding Source="{x:Static t:MessageBoxButton.OkCancel}" />
             <Binding Source="{x:Static t:MessageBoxButton.YesNoCancel}" />
           </MultiBinding>
         </Button.IsVisible>
         <Grid.Column>
-          <MultiBinding Converter="{StaticResource FirstBoolToValueConverter}">
+          <MultiBinding Converter="{StaticResource FirstBoolToValueMultiConverter}">
             <Binding Path="InvertButtonPosition" />
             <Binding>
               <Binding.Source>

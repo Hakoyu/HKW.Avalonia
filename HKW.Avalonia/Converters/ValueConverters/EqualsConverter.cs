@@ -1,14 +1,16 @@
-﻿using Avalonia;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HKW.HKWAvalonia.Converters;
 
 /// <summary>
-/// 字符串是null或者空转换器
+/// 相等转换器
 /// </summary>
-public class StringIsNullOrEmptyConverter
-    : InvertibleValueConverterBase<StringIsNullOrEmptyConverter>
+public class EqualsConverter : InvertibleValueConverterBase<EqualsConverter>
 {
     /// <inheritdoc/>
     public override object? Convert(
@@ -18,6 +20,6 @@ public class StringIsNullOrEmptyConverter
         CultureInfo culture
     )
     {
-        return string.IsNullOrEmpty(value as string) ^ IsInverted;
+        return value?.Equals(parameter) ^ IsInverted;
     }
 }

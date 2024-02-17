@@ -18,7 +18,7 @@ namespace HKW.HKWAvalonia.Converters;
 /// </MultiBinding>
 /// ]]></code></para>
 /// </summary>
-public class StringFormatConverter : MultiValueConverterBase<StringFormatConverter>
+public class StringFormatMultiConverter : MultiValueConverterBase<StringFormatMultiConverter>
 {
     /// <summary>
     ///

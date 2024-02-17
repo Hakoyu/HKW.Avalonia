@@ -13,11 +13,7 @@
   <Design.DataContext>
     <vm:MainVM />
   </Design.DataContext>
-  <UserControl.Resources>
-    <c:BoolInverteConverter x:Key="BoolInverteConverter" />
-    <c:StringCaseConverter x:Key="StringCaseConverter" />
-    <c:StringFormatConverter x:Key="StringFormatConverter" />
-  </UserControl.Resources>
+  <UserControl.Resources />
   <StackPanel>
     <Button Command="{Binding ShowMessageBoxCommand}" Content="ShowMessageBox" />
   </StackPanel>

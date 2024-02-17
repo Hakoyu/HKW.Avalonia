@@ -13,7 +13,7 @@ namespace HKW.HKWAvalonia.Converters;
 /// </MultiBinding>
 /// ]]></code></para>
 /// </summary>
-public class EqualsConverter : InvertibleMultiValueConverterBase<EqualsConverter>
+public class EqualsMultiConverter : InvertibleMultiValueConverterBase<EqualsMultiConverter>
 {
     /// <inheritdoc/>
     /// <exception cref="NotImplementedException">参数必须为2</exception>
